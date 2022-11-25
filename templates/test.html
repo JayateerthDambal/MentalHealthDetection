@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block content %}
+    <h2>Hello, {{ request.user }}</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class="container">
+
+            <div class="col-12 mt-5">
+                <h1 class="text-center alert alert-info">Take a Test</h1>
+            </div>
+
+            <div class="row align-items-center">
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">1. What is your Age?</p>
+                    <input type="number" class="form-control" name="age">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">2. What is your Course?</p>
+                    <input type="text" class="form-control" name="course">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">3. What is your Marital Status? (yes/no)</p>
+                    <input type="text" class="form-control" name="marital_status">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">4. Do you Anxiety? (yes/no)</p>
+                    <input type="text" class="form-control" name="anxiety">
+                </div>
+
+
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">5. Do you have Depression? (yes/no)</p>
+                    <input type="text" class="form-control" name="depression">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">6. Do you have Panic Attack?(yes/no)</p>
+                    <input type="text" class="form-control" name="panic_attack">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">7. Do you seeked any specialist? (yes/no)</p>
+                    <input type="text" class="form-control" name="specialist">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">8. Do you Smoke? (yes/no)</p>
+                    <input type="text" class="form-control" name="smoking">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">9. Do you consume Alcohol? (yes/no)</p>
+                    <input type="text" class="form-control" name="drinking">
+                </div>
+                <div class="col-6 mt-5">
+                    <p class="text-center alert alert-primary">10. Do you consume any drugs? (yes/no)</p>
+                    <input type="text" class="form-control" name="drugs">
+                </div>
+            </div>
+            {% for field in form %}
+                <div class="fieldWrapper">
+                    {{ field.errors }}
+
+                </div>
+            {% endfor %}
+            <input type="submit" value="Submit your Response" class="btn btn-outline-primary mt-5">
+        </div>
+        {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+
+            </div>
+        {% endfor %}
+    </form>
+{% endblock %}
