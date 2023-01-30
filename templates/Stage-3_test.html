@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Home
+    Stage-3| Test
 {% endblock %}
 
 {% block content %}
@@ -17,7 +17,7 @@
 
             <label for="first_ques"
                    style="border: 1px solid cornflowerblue; padding: 15px 10px; border-radius: 8px; margin: 20px 0px;">
-                Have you lately feeling sad or lonely?</label>
+                Do you take any pills before it for some purpose?</label>
             <select name="first_ques" id="first_ques" class="form-select">
                 {% for first_que in form.first_ques %}
                     {{ first_que }}
@@ -26,7 +26,7 @@
             </select>
             <label for="second_ques"
                    style="border: 1px solid cornflowerblue; padding: 15px 10px; border-radius: 8px; margin: 20px 0px;">
-                Do you feel Angry Now-a-Days?</label>
+                How frequently have you been bothered by not being able to stop worrying?</label>
             <select name="second_ques" id="second_ques" class="form-select">
                 {% for first_que in form.second_ques %}
                     {{ first_que }}
@@ -35,7 +35,7 @@
             </select>
             <label for="third_ques"
                    style="border: 1px solid cornflowerblue; padding: 15px 10px; border-radius: 8px; margin: 20px 0px;">
-                Do you Smoke?</label>
+                Let’s talk about how often you have felt satisfied with yourself over the past X months.</label>
             <select name="third_ques" id="third_ques" class="form-select">
                 {% for first_que in form.third_ques %}
                     {{ first_que }}
@@ -44,7 +44,7 @@
             </select>
             <label for="fourth_ques"
                    style="border: 1px solid cornflowerblue; padding: 15px 10px; border-radius: 8px; margin: 20px 0px;">
-               Do you consume Alcohol?</label>
+                What about your hopes and dreams for the future? What feelings have you had recently about working toward those goals?</label>
             <select name="fourth_ques" id="fourth_ques" class="form-select">
                 {% for first_que in form.fourth_ques %}
                     {{ first_que }}
@@ -53,7 +53,7 @@
             </select>
             <label for="fifth_ques"
                    style="border: 1px solid cornflowerblue; padding: 15px 10px; border-radius: 8px; margin: 20px 0px;">
-                have you felt threaten by someone?</label>
+                Tell me about any important activities or projects that you’ve been involved with recently. How much enjoyment do you get from these?</label>
             <select name="fifth_ques" id="fifth_ques" class="form-select">
                 {% for first_que in form.fifth_ques %}
                     {{ first_que }}
