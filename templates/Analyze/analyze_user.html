@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Analyze User
+{% endblock %}
+
+{% block content %}
+    <h2 class="text text-center alert alert-info">Stage-1 Analysis</h2>
+    <canvas id="canvas"></canvas>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            url: "{% url 'parse_user_responses' %}",
+            success: function(data){
+                let user_data = JSON.parse(data)
+                console.log(user_data[0])
+                let first_ques = []
+                let second_ques = []
+                let third_ques = []
+                let fourth_ques = []
+                let fifth_ques = []
+                let date_vals = []
+                let time_vals = []
+                for (let i =0; i<=9; i++){
+                    first_ques.push(user_data[i].first_ques)
+                    second_ques.push(user_data[i].second_ques)
+                    third_ques.push(user_data[i].third_ques)
+                    fourth_ques.push(user_data[i].fourth_ques)
+                    fifth_ques.push(user_data[i].fifth_ques)
+                    date_vals.push(user_data[i].date_time.slice(0, 10))
+                    time_vals.push(user_data[i].date_time.slice(11, 19))
+                }
+
+                var config = {
+                    type: 'bar',
+                    data:{
+                        labels: date_vals,
+                        datasets:[
+                            {
+                                label: "Yes",
+                                data: get_counts(user_data[0])
+                            }
+                        ]
+                    }
+                }
+            }
+        });
+        function get_counts(list) {
+            let counts = {}
+            for (const num of list){
+                counts[num] = counts[num] ? counts[num] + 1 : 1;
+
+            }
+            return counts["Yes"]
+        }
+    </script>
+{% endblock %}

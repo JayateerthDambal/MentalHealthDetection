@@ -9,5 +9,8 @@ urlpatterns = [
     path("analyze_response/<int:id>", views.analyze_user_response, name="analyze_response"),
     path("stage_2_test/", views.stage2_test_response, name="stage2Test"),
     path("stage_3_test/", views.stage3_test_response, name="stage3Test"),
+    path("test_page/", views.test_page, name="test_page"),
+    path("analyze/", views.analyze_user_report, name="analyze_user"),
+    path("parse_user_responses/", views.get_user_json, name="parse_user_responses")
     # path('')
 ]

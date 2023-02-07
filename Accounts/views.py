@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -9,11 +11,27 @@ from django.contrib import messages
 from .forms import UserResponseForm
 from json import dumps
 from django.http import JsonResponse
+from collections import Counter
 
 
 @login_required(login_url='/login')
 def home_page(request):
     return render(request, 'home.html')
+
+
+@login_required(login_url="/login")
+def test_page(request):
+    latest_response = UserResponse.objects.filter(user=request.user).values().latest("date_time")
+    vals = [latest_response[i] for i in latest_response]
+    stage_num = vals[2]
+    vals = vals[3:8]
+    counts = dict(Counter(vals))
+    num_yes_no = {key: value for key, value in counts.items() if value > 1}
+    num_yes_no = vals.count("Yes")
+    print(num_yes_no)
+    if num_yes_no > 2:
+        messages.success(request, 'You can give Second Test!')
+    return render(request, 'test_page.html')
 
 
 def signup_page(request):
@@ -135,7 +153,25 @@ def stage3_test_response(request):
 
         user_response = UserResponse.objects.filter(user=request.user).latest("date_time")
         return render(request, 'test_view.html', {'data': user_response, 'form': form})
-
-
     else:
         return render(request, 'Stage-3_test.html', {"form": form})
+
+
+@login_required(login_url="/login")
+def analyze_user_report(request):
+    user_data = UserResponse.objects.filter(user=request.user).values("date_time", "first_ques",
+                                                                      "third_ques", 'second_ques', 'fourth_ques',
+                                                                      'fifth_ques').order_by("-id")[:10][::1]
+
+    return render(request, 'Analyze/analyze_user.html', {'user_data': user_data})
+
+
+def get_user_json(request):
+    user_data = UserResponse.objects.filter(user=request.user).values("date_time", "first_ques",
+                                                                      "third_ques", 'second_ques', 'fourth_ques',
+                                                                      'fifth_ques').order_by("-id")[:10][::1]
+
+    user_data = list(user_data)
+    user_data_json = json.dumps(user_data, default=str)
+
+    return JsonResponse(user_data_json, safe=False)
