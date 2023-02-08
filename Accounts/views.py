@@ -21,17 +21,21 @@ def home_page(request):
 
 @login_required(login_url="/login")
 def test_page(request):
-    latest_response = UserResponse.objects.filter(user=request.user).values().latest("date_time")
-    vals = [latest_response[i] for i in latest_response]
-    stage_num = vals[2]
-    vals = vals[3:8]
-    counts = dict(Counter(vals))
-    num_yes_no = {key: value for key, value in counts.items() if value > 1}
-    num_yes_no = vals.count("Yes")
-    print(num_yes_no)
-    if num_yes_no > 2:
-        messages.success(request, 'You can give Second Test!')
-    return render(request, 'test_page.html')
+    if UserResponse.objects.filter(user=request.user).exists():
+        latest_response = UserResponse.objects.filter(user=request.user).values().latest("date_time")
+
+        vals = [latest_response[i] for i in latest_response]
+        stage_num = vals[2]
+        vals = vals[3:8]
+        counts = dict(Counter(vals))
+        num_yes_no = {key: value for key, value in counts.items() if value > 1}
+        num_yes_no = vals.count("Yes")
+        print(num_yes_no)
+        if num_yes_no > 2:
+            messages.success(request, 'You can give Second Test!')
+        return render(request, 'test_page.html')
+    else:
+        return render(request, 'test_page.html')
 
 
 def signup_page(request):
